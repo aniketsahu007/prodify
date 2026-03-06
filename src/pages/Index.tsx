@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { AppSidebar } from "@/components/AppSidebar";
 import { DashboardHeader } from "@/components/DashboardHeader";
+import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { MetricsGrid } from "@/components/MetricsGrid";
 import { WeeklyChart } from "@/components/charts/WeeklyChart";
 import { CategoryChart } from "@/components/charts/CategoryChart";
@@ -17,6 +18,7 @@ type View = "dashboard" | "tasks" | "analytics";
 
 const Index = () => {
   const [currentView, setCurrentView] = useState<View>("dashboard");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { addNotification } = useNotification();
   const { tasks, toggleTask, addTask, deleteTask, deleteAllTasks } = useTasks();
 
@@ -48,9 +50,27 @@ const Index = () => {
 
   return (
     <div className="flex min-h-screen bg-background">
-      <AppSidebar currentView={currentView} onViewChange={setCurrentView} />
-      <main className="flex-1 overflow-auto">
-        <DashboardHeader view={currentView} />
+      <div className="hidden md:block">
+        <AppSidebar currentView={currentView} onViewChange={setCurrentView} />
+      </div>
+
+      <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+        <SheetContent side="left" className="p-0 w-64 border-r-0">
+          <AppSidebar
+            currentView={currentView}
+            onViewChange={(v) => {
+              setCurrentView(v);
+              setIsMobileMenuOpen(false);
+            }}
+          />
+        </SheetContent>
+      </Sheet>
+
+      <main className="flex-1 overflow-auto w-full">
+        <DashboardHeader
+          view={currentView}
+          onMenuClick={() => setIsMobileMenuOpen(true)}
+        />
         <div className="p-6 space-y-6">
           {currentView === "dashboard" && (
             <>

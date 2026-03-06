@@ -1,4 +1,4 @@
-import { Bell, Search, Check, CheckCircle2 } from "lucide-react";
+import { Bell, Search, Check, CheckCircle2, Menu } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useToast } from "@/hooks/use-toast";
 import { useNotification } from "@/contexts/NotificationContext";
@@ -12,6 +12,7 @@ import { formatDistanceToNow } from "date-fns";
 
 interface DashboardHeaderProps {
   view: string;
+  onMenuClick?: () => void;
 }
 
 const titles: Record<string, { title: string; subtitle: string }> = {
@@ -20,7 +21,7 @@ const titles: Record<string, { title: string; subtitle: string }> = {
   analytics: { title: "Analytics", subtitle: "Deep dive into your performance data" },
 };
 
-export const DashboardHeader = ({ view }: DashboardHeaderProps) => {
+export const DashboardHeader = ({ view, onMenuClick }: DashboardHeaderProps) => {
   const { title, subtitle } = titles[view] || titles.dashboard;
   const {
     notifications,
@@ -32,9 +33,19 @@ export const DashboardHeader = ({ view }: DashboardHeaderProps) => {
   return (
     <header className="sticky top-0 z-10 bg-background/80 backdrop-blur-md border-b border-border px-6 py-4">
       <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-foreground">{title}</h1>
-          <p className="text-sm text-muted-foreground">{subtitle}</p>
+        <div className="flex items-center gap-3">
+          {onMenuClick && (
+            <button
+              onClick={onMenuClick}
+              className="md:hidden p-2 -ml-2 text-muted-foreground hover:bg-secondary rounded-lg transition-colors"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
+          )}
+          <div>
+            <h1 className="text-2xl font-bold text-foreground">{title}</h1>
+            <p className="text-sm text-muted-foreground hidden sm:block">{subtitle}</p>
+          </div>
         </div>
         <div className="flex items-center gap-3">
           <div className="relative hidden md:block">

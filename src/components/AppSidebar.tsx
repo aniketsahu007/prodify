@@ -15,7 +15,7 @@ const navItems = [
 
 export const AppSidebar = ({ currentView, onViewChange }: AppSidebarProps) => {
   return (
-    <aside className="w-64 bg-sidebar text-sidebar-foreground border-r border-sidebar-border flex flex-col min-h-screen shrink-0">
+    <aside className="w-64 bg-sidebar text-sidebar-foreground border-r border-sidebar-border flex flex-col h-full shrink-0">
       <div className="p-6 border-b border-sidebar-border">
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-lg gradient-primary flex items-center justify-center">
@@ -36,8 +36,8 @@ export const AppSidebar = ({ currentView, onViewChange }: AppSidebarProps) => {
               key={item.id}
               onClick={() => onViewChange(item.id)}
               className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${isActive
-                  ? "bg-sidebar-accent text-sidebar-primary"
-                  : "text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground"
+                ? "bg-sidebar-accent text-sidebar-primary"
+                : "text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground"
                 }`}
             >
               <item.icon className="w-4 h-4" />
