@@ -63,20 +63,20 @@ export const TaskList = ({ tasks, onToggle, onDelete, onAdd, onDeleteAll, compac
 
   return (
     <div className="bg-card border border-border rounded-xl shadow-card overflow-hidden">
-      <div className="p-5 border-b border-border flex items-center justify-between">
+      <div className="p-5 border-b border-border flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <h3 className="text-sm font-semibold text-card-foreground">
           {compact ? "Upcoming Tasks" : "All Tasks"}
         </h3>
         {!compact && (
-          <div className="flex gap-2 items-center text-xs">
-            <div className="flex gap-1 bg-secondary/50 p-1 rounded-lg">
+          <div className="flex flex-wrap gap-2 items-center text-xs w-full sm:w-auto">
+            <div className="flex flex-wrap gap-1 bg-secondary/50 p-1 rounded-lg">
               {(["all", "active", "completed"] as const).map((f) => (
                 <button
                   key={f}
                   onClick={() => setFilter(f)}
                   className={`px-3 py-1 rounded-md font-medium transition-colors capitalize ${filter === f
-                      ? "bg-primary text-primary-foreground shadow-sm"
-                      : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+                    ? "bg-primary text-primary-foreground shadow-sm"
+                    : "text-muted-foreground hover:bg-secondary hover:text-foreground"
                     }`}
                 >
                   {f}
@@ -103,7 +103,7 @@ export const TaskList = ({ tasks, onToggle, onDelete, onAdd, onDeleteAll, compac
       </div>
 
       {onAdd && (
-        <div className="px-5 py-3 border-b border-border flex gap-3 items-center bg-muted/10">
+        <div className="px-5 py-3 border-b border-border flex flex-col sm:flex-row gap-3 sm:items-center bg-muted/10">
           <input
             value={newTitle}
             onChange={(e) => setNewTitle(e.target.value)}
@@ -146,8 +146,8 @@ export const TaskList = ({ tasks, onToggle, onDelete, onAdd, onDeleteAll, compac
               <button
                 onClick={() => onToggle(task.id)}
                 className={`w-5 h-5 rounded-md border-2 flex items-center justify-center shrink-0 transition-all ${task.completed
-                    ? "bg-primary border-primary"
-                    : "border-border hover:border-primary"
+                  ? "bg-primary border-primary"
+                  : "border-border hover:border-primary"
                   }`}
               >
                 {task.completed && <Check className="w-3 h-3 text-primary-foreground" />}

@@ -11,7 +11,7 @@ export const CategoryChart = () => {
       className="bg-card border border-border rounded-xl p-6 shadow-card"
     >
       <h3 className="text-sm font-semibold text-card-foreground mb-4">Category Distribution</h3>
-      <div className="flex items-center gap-6">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-6">
         <ResponsiveContainer width={180} height={180}>
           <PieChart>
             <Pie
